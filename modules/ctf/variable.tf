@@ -18,6 +18,11 @@ variable "subnetwork_name" {
   description = "Name of the sub-network this set of firewall rules applies to."
 }
 
+variable "ip_cidr_range" {
+  description = "CIDR range for the subnetwork."
+  default = "10.1.0.0/16"
+}
+
 variable "ctfd_instance_name" {
   description = "Name of the CTFd instance."
 }

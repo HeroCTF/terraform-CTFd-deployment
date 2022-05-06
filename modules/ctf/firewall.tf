@@ -55,3 +55,22 @@ resource "google_compute_firewall" "challenge" {
   ]
 }
 
+resource "google_compute_firewall" "swarm" {
+  name    = "${var.network_name}-allow-swarm"
+  project = var.project_id
+  network = var.network_name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["2377"]
+  }
+
+  direction     = "INGRESS"
+  source_ranges = [var.ip_cidr_range]
+  target_tags   = ["swarm"]
+
+  depends_on = [
+    google_compute_network.ctf_network,
+  ]
+}
+

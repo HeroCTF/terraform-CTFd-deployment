@@ -2,7 +2,7 @@ resource "google_compute_instance" "ctfd_instance" {
   name         = var.ctfd_instance_name
   machine_type = var.ctfd_instance_type
   zone         = var.zone
-  tags         = ["ssh", "ctfd"]
+  tags         = ["ssh", "ctfd", "swarm"]
 
   metadata = {
     ssh-keys = "${var.ssh_username}:${file(var.ssh_pubkey_path)}"
@@ -36,7 +36,7 @@ resource "google_compute_instance" "challenge_instance" {
   name         = "${var.challenge_instance_name}-${count.index}"
   machine_type = var.challenge_instance_type
   zone         = var.zone
-  tags         = ["ssh", "challenge"]
+  tags         = ["ssh", "challenge", "swarm"]
 
   metadata = {
     ssh-keys = "${var.ssh_username}:${file(var.ssh_pubkey_path)}"
