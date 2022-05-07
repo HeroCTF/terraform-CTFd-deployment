@@ -1,4 +1,4 @@
-resource "google_compute_firewall" "ssh" {
+resource "google_compute_firewall" "firewall_ssh" {
   name    = "${var.network_name}-allow-ssh"
   project = var.project_id
   network = var.network_name
@@ -17,7 +17,7 @@ resource "google_compute_firewall" "ssh" {
   ]
 }
 
-resource "google_compute_firewall" "web" {
+resource "google_compute_firewall" "firewall_web" {
   name    = "${var.network_name}-allow-http-https"
   project = var.project_id
   network = var.network_name
@@ -36,8 +36,8 @@ resource "google_compute_firewall" "web" {
   ]
 }
 
-resource "google_compute_firewall" "challenge" {
-  name    = "${var.network_name}-allow-challenge"
+resource "google_compute_firewall" "firewall_netcat" {
+  name    = "${var.network_name}-allow-netcat"
   project = var.project_id
   network = var.network_name
 
@@ -48,26 +48,26 @@ resource "google_compute_firewall" "challenge" {
 
   direction     = "INGRESS"
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["challenge"]
+  target_tags   = ["netcat"]
 
   depends_on = [
     google_compute_network.ctf_network,
   ]
 }
 
-resource "google_compute_firewall" "swarm" {
-  name    = "${var.network_name}-allow-swarm"
+resource "google_compute_firewall" "firewall_internal" {
+  name    = "${var.network_name}-allow-internal"
   project = var.project_id
   network = var.network_name
 
   allow {
     protocol = "tcp"
-    ports    = ["2377"]
+    ports    = ["1-65535"]
   }
 
   direction     = "INGRESS"
   source_ranges = [var.ip_cidr_range]
-  target_tags   = ["swarm"]
+  target_tags   = ["internal"]
 
   depends_on = [
     google_compute_network.ctf_network,

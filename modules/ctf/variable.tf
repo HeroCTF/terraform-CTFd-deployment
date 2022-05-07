@@ -20,7 +20,7 @@ variable "subnetwork_name" {
 
 variable "ip_cidr_range" {
   description = "CIDR range for the subnetwork."
-  default = "10.1.0.0/16"
+  default     = "10.1.0.0/16"
 }
 
 variable "ctfd_instance_name" {
@@ -40,7 +40,7 @@ variable "challenge_instance_type" {
 }
 
 variable "challenge_instances_count" {
-    description = "Number of Challenge instances."
+  description = "Number of Challenge instances."
 }
 
 variable "ssh_username" {
