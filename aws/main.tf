@@ -1,9 +1,17 @@
-resource "aws_instance" "vm-web" {
-    ami           = "ami-0bef70af9e7b392fc" // debian-11
-    instance_type = "t2.micro"
+resource "aws_instance" "vm_ctfd" {
+  ami           = "ami-0fdc5ad8a8cfb4d44" // debian-11
+  instance_type = "t2.micro"
 
-    tags = {
-        Name = "CTFd"
-        Env = "prod"
-    }
+  network_interface {
+    network_interface_id = aws_network_interface.ctf_net_interface.id
+    device_index         = 0
+  }
+
+  root_block_device {
+    volume_size = 256
+  }
+
+  tags = {
+    Name = "vm-CTFd"
+  }
 }
