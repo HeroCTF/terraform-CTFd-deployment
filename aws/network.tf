@@ -16,11 +16,15 @@ resource "aws_subnet" "ctf_subnet" {
   }
 }
 
-resource "aws_network_interface" "ctf_net_interface" {
+resource "aws_network_interface" "ctfd_net_interface" {
   subnet_id   = aws_subnet.ctf_subnet.id
-  private_ips = ["172.16.1.1"]
+  private_ips = ["172.16.1.100"]
+
+  security_groups = [
+    aws_security_group.allow_https.id
+  ]
 
   tags = {
-    Name = "ctf-net-interface"
+    Name = "ctfd-net-interface"
   }
 }

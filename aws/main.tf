@@ -3,7 +3,7 @@ resource "aws_instance" "vm_ctfd" {
   instance_type = "t2.micro"
 
   network_interface {
-    network_interface_id = aws_network_interface.ctf_net_interface.id
+    network_interface_id = aws_network_interface.ctfd_net_interface.id
     device_index         = 0
   }
 
