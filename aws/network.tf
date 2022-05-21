@@ -11,6 +11,9 @@ resource "aws_subnet" "ctf_subnet" {
   cidr_block        = "172.16.1.0/24"
   availability_zone = var.zone
 
+  map_public_ip_on_launch = true
+
+
   tags = {
     Name = "ctf-subnet"
   }
@@ -20,8 +23,10 @@ resource "aws_network_interface" "ctfd_net_interface" {
   subnet_id   = aws_subnet.ctf_subnet.id
   private_ips = ["172.16.1.100"]
 
+
   security_groups = [
-    aws_security_group.allow_https.id
+    aws_security_group.sg_allow_https.id,
+    aws_security_group.sg_bastion_ssh.id
   ]
 
   tags = {
