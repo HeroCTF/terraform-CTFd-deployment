@@ -1,6 +1,6 @@
 resource "linode_firewall" "dynamic_firewall" {
   label = "dynamic_firewall"
-  tags  = ["ssh"]
+  tags  = ["ssh", "swarm", "dynamic"]
 
   inbound {
     label    = "allow-ssh"
