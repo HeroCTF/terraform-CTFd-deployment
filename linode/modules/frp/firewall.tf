@@ -1,6 +1,6 @@
 resource "linode_firewall" "frp_firewall" {
   label = "frp_firewall"
-  tags  = ["ssh", "socket-docker", "frpc", "http", "https", "dns"]
+  tags  = ["ssh", "socket-docker", "frp", "http", "https", "dns", "swarm", "challenges"]
 
   inbound {
     label    = "inbound-ssh"
@@ -66,12 +66,39 @@ resource "linode_firewall" "frp_firewall" {
   }
 
   inbound {
+    label    = "inbound-docker-swarm"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "2377"
+    ipv4     = ["0.0.0.0/0"] // to remove after deploy
+    ipv6     = ["::/0"]
+  }
+
+  inbound {
+    label    = "inbound-frps"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "7000"
+    ipv4     = ["35.205.173.230/32"] // change to CTFd IPs
+    # ipv6     = ["::/0"]
+  }
+
+  inbound {
     label    = "inbound-frpc"
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "7400"
     ipv4     = ["35.205.173.230/32"] // change to CTFd IPs
     # ipv6     = ["::/0"]
+  }
+
+  inbound {
+    label    = "allow-challenges"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "10000-10100"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
   }
 
   inbound_policy = "DROP"
