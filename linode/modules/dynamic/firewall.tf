@@ -12,6 +12,15 @@ resource "linode_firewall" "dynamic_firewall" {
   }
 
   outbound {
+    label    = "outbound-ssh"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "22"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
+
+  outbound {
     label    = "outbound-http"
     action   = "ACCEPT"
     protocol = "TCP"
