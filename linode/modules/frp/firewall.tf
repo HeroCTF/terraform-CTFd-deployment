@@ -1,9 +1,9 @@
 resource "linode_firewall" "frp_firewall" {
   label = "frp_firewall"
-  tags  = ["ssh", "socket-docker", "frpc"]
+  tags  = ["ssh", "socket-docker", "frpc", "http", "https", "dns"]
 
   inbound {
-    label    = "allow-ssh"
+    label    = "inbound-ssh"
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "22"
@@ -12,7 +12,52 @@ resource "linode_firewall" "frp_firewall" {
   }
 
   inbound {
-    label    = "allow-socket-docker"
+    label    = "inbound-http"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "80"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
+
+  inbound {
+    label    = "inbound-https"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "443"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
+
+  outbound {
+    label    = "outbound-http"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "80"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
+
+  outbound {
+    label    = "outbound-https"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "443"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
+
+  outbound {
+    label    = "outbound-dns"
+    action   = "ACCEPT"
+    protocol = "UDP"
+    ports    = "53"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
+
+  inbound {
+    label    = "inbound-socket-docker"
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "2376"
@@ -21,7 +66,7 @@ resource "linode_firewall" "frp_firewall" {
   }
 
   inbound {
-    label    = "allow-frpc"
+    label    = "inbound-frpc"
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "7400"
