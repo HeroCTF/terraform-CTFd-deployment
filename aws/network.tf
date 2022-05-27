@@ -26,7 +26,8 @@ resource "aws_network_interface" "ctfd_net_interface" {
 
   security_groups = [
     aws_security_group.sg_allow_https.id,
-    aws_security_group.sg_bastion_ssh.id
+    aws_security_group.sg_allow_http.id,
+    aws_security_group.sg_allow_ssh.id,
   ]
 
   tags = {
