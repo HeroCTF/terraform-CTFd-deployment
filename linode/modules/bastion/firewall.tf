@@ -1,14 +1,14 @@
-resource "linode_firewall" "static_firewall" {
-  label = var.firewall_label
-  tags  = ["all"]
+resource "linode_firewall" "bastion_firewall" {
+  label = "bastion_firewall"
+  tags  = ["ssh"]
 
   inbound {
-    label    = "allow-all-inbound"
+    label    = "allow-ssh"
     action   = "ACCEPT"
     protocol = "TCP"
-    ports    = "1-65535"
-    ipv4     = ["172.105.82.179/32"] // change to 0.0.0.0
-    # ipv6     = ["::/0"]
+    ports    = "22"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
   }
 
   outbound {

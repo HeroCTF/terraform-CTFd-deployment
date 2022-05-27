@@ -61,7 +61,7 @@ resource "linode_firewall" "frp_firewall" {
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "2376"
-    ipv4     = ["35.205.173.230/32"] // change to CTFd IPs
+    ipv4     = ["194.195.240.112/32"] // change to CTFd IPs
     # ipv6     = ["::/0"]
   }
 
@@ -79,7 +79,7 @@ resource "linode_firewall" "frp_firewall" {
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "7000"
-    ipv4     = ["35.205.173.230/32"] // change to CTFd IPs
+    ipv4     = ["194.195.240.112/32"] // change to CTFd IPs
     # ipv6     = ["::/0"]
   }
 
@@ -88,7 +88,7 @@ resource "linode_firewall" "frp_firewall" {
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "7400"
-    ipv4     = ["35.205.173.230/32"] // change to CTFd IPs
+    ipv4     = ["194.195.240.112/32"] // change to CTFd IPs
     # ipv6     = ["::/0"]
   }
 

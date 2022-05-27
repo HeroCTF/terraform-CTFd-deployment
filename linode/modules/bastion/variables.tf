@@ -6,10 +6,6 @@ variable "key_label" {
   description = "New SSH key label."
 }
 
-variable "firewall_label" {
-  description = "Firewall label name."
-}
-
 variable "linode_count" {
   description = "The number of Linode instances to deploy."
   type = number
